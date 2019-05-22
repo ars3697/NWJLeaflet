@@ -1,0 +1,39 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+#header, #sidebar {
+	font-family: Arial;
+	font-weight: bold;
+}
+
+#header {
+	text-align: center;
+	border: solid 2px black;
+}
+
+#container {
+	height: 91%;
+	width: 100%;
+}
+
+#sidebar {
+	height: 100%;
+	width: 15%;
+	float: left;
+	text-align: center;
+	background-color: #f2f2f2;
+	box-sizing: border-box;
+	padding: 10px;
+	overflow: scroll;
+}
+
+#mapid {
+	height: 100%;
+	width: 85%;
+	float: left;
+}
+
