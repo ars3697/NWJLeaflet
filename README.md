@@ -1,3 +1,4 @@
 # NWJLeaflet
+The Washington Growth Management Act has been in play for just about thirty years forming the basis of comprehensive planning efforts for cities across Washington including Spokane, Seattle, Tacoma, and the Tri-Cities. We would like to use data analysis and mapping to further understand how the Washington Growth Management Act has affected housing availability and affordability for people within each income bracket. We will do so by creating an interactive web map visually accessible for the people at the Northwest Justice Project enabling them to further understand what income brackets might be doing well or poorly with housing availability and affordability. We will use open source because we have confirmed that not all users will have access to softwares like ArcMap. Outlined below are the system requirements, each of which align with the goal and end-user specified by our sponsor.
 
-UNDER CONSTRUCTION
+This folder contains an interactive map using Leaflet for the Washington Growth Management Act. 
