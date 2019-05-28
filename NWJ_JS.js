@@ -1,313 +1,289 @@
 ////////////////////////////////
+//      GLOBAL VARIABLES      //  		
+////////////////////////////////
+
+var king2017, pierce2017, spokane2017, benton2017, franklin2017, wallawalla2017;
+var king2017max, pierce2017max, spokane2017max, benton2017max, franklin2017max, wallawalla2017max;
+var styleSubject = 'TRACT2017_TotalPop17';
+var currentSubject = 'Total Population';
+document.getElementById("currentSelect").innerHTML = "SELECTED: " + currentSubject;
+
+////////////////////////////////
 //      INITIALIZING MAP      //  		
 ////////////////////////////////
 
-// SEATTLE/KING COUNTY VIEW: (47.604673, -122.330884), 10 <- Zoom Level			
+// SEATTLE/KING COUNTY VIEW: (47.604673, -122.330884), 10 <- Zoom Level
+// CENTER OF WASHINGTON VIEW: (47.4235, -120.3103), 8 	
+// CENTER OF COUNTIES VIEW: (46.789512, -119.969831), 8		
 
 // Initializes and modifies map.
-var mymap = L.map('mapid').setView([47.604673, -122.330884], 10);
+var mymap = L.map('mapid').setView([46.789512, -119.969831], 8);
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+// CartoDB.Positron Basemap
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 18
+}).addTo(mymap);
+
+// Default Basemap
+/**L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 	maxZoom: 18,
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	id: 'mapbox.streets'
-}).addTo(mymap);
+}).addTo(mymap);**/
 
 /////////////////////////////////
 //      IMPORTING GEOJSON      //  		
 /////////////////////////////////
 
-// 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// KING2017
-// CENSUS TRACT, 2017, KING COUNTY
-
-// FUNCTION: onEachFeature_king2017
+// FUNCTION: onEachFeature
 // Enables popups when clicking on a shape in the map.
-// Settings for king2017.
-function onEachFeature_king2017(feature, layer) {
+function onEachFeature(feature, layer) {
 	var popupContent = "";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += "GEOID: " + feature.properties.GEOID + " ";
+	var line = 'feature.properties.' + styleSubject;
+	if (feature.properties && feature.properties.NAMELSAD) {
+		popupContent += "Name: " + feature.properties.NAMELSAD + ", ";
 	}
 	
-	if (feature.properties && feature.properties.TRACT2017_TotalPop17) {
-		popupContent += "TotalPop17: " + feature.properties.TRACT2017_TotalPop17 + " ";
+	if (feature.properties && eval(line)) {
+		popupContent += currentSubject + ": " + eval(line) + " ";
 	}
 	layer.bindPopup(popupContent);
 }
 
-// Adds 2017 King county census tract polygons.
-var king2017 = L.geoJSON(king2017json, {
-	style: totalPop17Style,
-	onEachFeature: onEachFeature_king2017
-});
-king2017.addTo(mymap);
+// 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// PIERCE2017
-// CENSUS TRACT, 2017, PIERCE COUNTY
-
-// FUNCTION: onEachFeature_pierce2017
-// Enables popups when clicking on a shape in the map.
-// Settings for pierce2017.
-function onEachFeature_pierce2017(feature, layer) {
-	var popupContent = "GEOID: ";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += feature.properties.GEOID;
-	}
-	layer.bindPopup(popupContent);
+// Adds 2017 King county census tract polygon.
+function setKing2017() {
+	king2017 = L.geoJSON(king2017json, {
+		style: layerKingStyle,
+		onEachFeature: onEachFeature
+	});	
 }
 
 // Adds 2017 Pierce county census tract polygon.
-var pierce2017 = L.geoJSON(pierce2017json, {
-	style: {"weight": 1, "opacity": 0.75},
-	onEachFeature: onEachFeature_pierce2017
-});
-
-// SPOKANE2017
-// CENSUS TRACT, 2017, SPOKANE COUNTY
-
-// FUNCTION: onEachFeature_spokane2017
-// Enables popups when clicking on a shape in the map.
-// Settings for spokane2017.
-function onEachFeature_spokane2017(feature, layer) {
-	var popupContent = "GEOID: ";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += feature.properties.GEOID;
-	}
-	layer.bindPopup(popupContent);
+function setPierce2017() {
+	pierce2017 = L.geoJSON(pierce2017json, {
+		style: layerPierceStyle,
+		onEachFeature: onEachFeature
+	});
 }
 
+
 // Adds 2017 Spokane county census tract polygon.
-var spokane2017 = L.geoJSON(spokane2017json, {
-	style: {"weight": 1, "opacity": 0.75},
-	onEachFeature: onEachFeature_spokane2017
-});
-
-// BENTON2017
-// CENSUS TRACT, 2017, BENTON COUNTY
-
-// FUNCTION: onEachFeature_benton2017
-// Enables popups when clicking on a shape in the map.
-// Settings for benton2017.
-function onEachFeature_benton2017(feature, layer) {
-	var popupContent = "GEOID: ";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += feature.properties.GEOID;
-	}
-	layer.bindPopup(popupContent);
+function setSpokane2017() {
+	spokane2017 = L.geoJSON(spokane2017json, {
+		style: layerSpokaneStyle,
+		onEachFeature: onEachFeature
+	});
 }
 
 // Adds 2017 Benton county census tract polygons.
-var benton2017 = L.geoJSON(benton2017json, {
-	style: {"weight": 1, "opacity": 0.75},
-	onEachFeature: onEachFeature_benton2017
-});
-
-// FRANKLIN2017
-// CENSUS TRACT, 2017, FRANKLIN COUNTY
-
-// FUNCTION: onEachFeature_franklin2017
-// Enables popups when clicking on a shape in the map.
-// Settings for franklin2017.
-function onEachFeature_franklin2017(feature, layer) {
-	var popupContent = "GEOID: ";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += feature.properties.GEOID;
-	}
-	layer.bindPopup(popupContent);
+function setBenton2017() {
+	benton2017 = L.geoJSON(benton2017json, {
+		style: layerBentonStyle,
+		onEachFeature: onEachFeature
+	});
 }
 
 // Adds 2017 Franklin county census tract polygons.
-var franklin2017 = L.geoJSON(franklin2017json, {
-	style: {"weight": 1, "opacity": 0.75},
-	onEachFeature: onEachFeature_franklin2017
-});
-
-// WALLAWALLA2017
-// CENSUS TRACT, 2017, WALLA WALLA COUNTY
-
-// FUNCTION: onEachFeature_wallawalla2017
-// Enables popups when clicking on a shape in the map.
-// Settings for wallawalla2017.
-function onEachFeature_wallawalla2017(feature, layer) {
-	var popupContent = "GEOID: ";
-	if (feature.properties && feature.properties.GEOID) {
-		popupContent += feature.properties.GEOID;
-	}
-	layer.bindPopup(popupContent);
+function setFranklin2017() {
+	franklin2017 = L.geoJSON(franklin2017json, {
+		style: layerFranklinStyle,
+		onEachFeature: onEachFeature
+	});
 }
 
 // Adds 2017 Walla Walla county census tract polygons.
-var wallawalla2017 = L.geoJSON(wallawalla2017json, {
-	style: {"weight": 1, "opacity": 0.75},
-	onEachFeature: onEachFeature_wallawalla2017
-});
+function setWallaWalla2017() {
+	wallawalla2017 = L.geoJSON(wallawalla2017json, {
+		style: layerWallaWallaStyle,
+		onEachFeature: onEachFeature
+	});
+}
 
 //////////////////////
 //      TOGGLES     //  		
 //////////////////////
 
-// 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function changeValue() {
+	var e = document.getElementById("selectSubject");
+	styleSubject = e.options[e.selectedIndex].id;
+	currentSubject = e.options[e.selectedIndex].value;
+	document.getElementById("currentSelect").innerHTML = "SELECTED: " + currentSubject;
+	king2017.remove(mymap);pierce2017.remove(mymap);spokane2017.remove(mymap);benton2017.remove(mymap);franklin2017.remove(mymap);wallawalla2017.remove(mymap);
+	
+	king2017max = getMax(getSubjectArray('king2017json', styleSubject));
+	pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject));
+	spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject));
+	benton2017max = getMax(getSubjectArray('benton2017json', styleSubject));
+	franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject));
+	wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject));
+	
+	setKing2017();setPierce2017();setSpokane2017();setBenton2017();setFranklin2017();setWallaWalla2017();
+	var checkboxes = document.getElementsByTagName('input');
+	for(var i=0; i<checkboxes.length; i++){
+		if(checkboxes[i].getAttribute('type')=='checkbox'){
+			if(checkboxes[i].checked){
+				eval(checkboxes[i].id).addTo(mymap);
+			};
+		}
+	}
+}
 
-// FUNCTION: toggleLayerSeattle2017
-// Toggles the 2017 Seattle layer using a checkbox.
-function toggleLayerSeattle2017() {
-	var checkBox = document.getElementById("toggleLayerSeattle2017");
-	if(checkBox.checked == true) {
-		seattle2017.addTo(mymap);
+// FUNCTION: toggleLayer
+// Enables the county layer to show up on the map.
+// Used in the HTML file.
+// getElement: Checkbox ID (ex. toggleLayerKing2017, toggleLayerPierce2017, etc.).
+// countyLayer: County polygon variable name (ex. king2017, pierce2017, etc.).
+function toggleLayer(getLayer) {
+	var checkBox = document.getElementById(getLayer);
+	if(checkBox.checked) {
+		eval(getLayer).addTo(mymap);
 	} else {
-		seattle2017.remove(mymap);
+		eval(getLayer).remove(mymap);
 	}
 };
-
-// FUNCTION: toggleLayerKing2017
-// Toggles the 2017 King layer using a checkbox.
-function toggleLayerKing2017() {
-	var checkBox = document.getElementById("toggleLayerKing2017");
-	if(checkBox.checked == true) {
-		king2017.addTo(mymap);
-	} else {
-		king2017.remove(mymap);
-	}
-};
-
-// FUNCTION: toggleLayerPierce2017
-// Toggles the 2017 Pierce layer using a checkbox.
-function toggleLayerPierce2017() {
-	var checkBox = document.getElementById("toggleLayerPierce2017");
-	if(checkBox.checked == true) {
-		pierce2017.addTo(mymap);
-	} else {
-		pierce2017.remove(mymap);
-	}
-};
-
-// FUNCTION: toggleLayerSpokane2017
-// Toggles the 2017 Spokane layer using a checkbox.
-function toggleLayerSpokane2017() {
-	var checkBox = document.getElementById("toggleLayerSpokane2017");
-	if(checkBox.checked == true) {
-		spokane2017.addTo(mymap);
-	} else {
-		spokane2017.remove(mymap);
-	}
-};
-
-// FUNCTION: toggleLayerBenton2017
-// Toggles the 2017 Benton layer using a checkbox.
-function toggleLayerBenton2017() {
-	var checkBox = document.getElementById("toggleLayerBenton2017");
-	if(checkBox.checked == true) {
-		benton2017.addTo(mymap);
-	} else {
-		benton2017.remove(mymap);
-	}
-};
-
-// FUNCTION: toggleLayerFranklin2017
-// Toggles the 2017 Franklin layer using a checkbox.
-function toggleLayerFranklin2017() {
-	var checkBox = document.getElementById("toggleLayerFranklin2017");
-	if(checkBox.checked == true) {
-		franklin2017.addTo(mymap);
-	} else {
-		franklin2017.remove(mymap);
-	}
-};
-
-// FUNCTION: toggleLayerWallaWalla2017
-// Toggles the 2017 Walla Walla layer using a checkbox.
-function toggleLayerWallaWalla2017() {
-	var checkBox = document.getElementById("toggleLayerWallaWalla2017");
-	if(checkBox.checked == true) {
-		wallawalla2017.addTo(mymap);
-	} else {
-		wallawalla2017.remove(mymap);
-	}
-};
-
-/** EVERYTHING UNDER HERE IS UNDER CONSTRUCTION. This is just trying to figure out how to make breaks for a choropleth map.
-But right now, I'm looking into finding a plugin somewhere on the internet.
-
-ALSO: This is how you access individual values for the layers.
-wallawalla2017json[0]['features'][x]['properties'][y]
-
-Pull up the WALLAWALLA2017.js file in the data/2017 folder
-
-wallawalla2017json[0]['features'][1]['properties']['TRACTCE']
-will give you 920500
-
-wallawalla2017json[0]['features'][2]['properties']['TRACTCE']
-will give you 920000
-
-wallawalla2017json[0]['features'][3]['properties']['GEOID']
-will give you 53071920600
-
-That [0] in front of wallawalla2017json is very important, don't leave it or change it.
-And you can also do the same for king2017json, spokane2017json, etc.
-
+ 
 //////////////////////
 //    CHOROPLETH    //  		
 //////////////////////
 
-function getMaxx(arr, prop) {
-    var max;
-    for (var i=0 ; i<arr.length ; i++) {
-        if (!max || parseInt(arr[i][prop]) > parseInt(max[prop]))
-            max = arr[i];
-    }
-    return max;
+// FUNCTION: getSubjectArray
+// Returns an array of a given county json file and its subject.
+// county: Variable name of the county json file (ex. seattle2017json, pierce2017json, etc.).
+// subject: Subject name from the county json file (ex. GEOID, TRACT2017_TotalPop17, etc.)
+function getSubjectArray (county, subject) {
+	var rows = [];
+	var i, count = 0;
+	for (i in eval(county)[0].features) {
+		if(eval(county)[0].features.hasOwnProperty(i)) {
+			rows.push(eval(county)[0]['features'][count]['properties'][subject])
+			count += 1;
+		};
+	};
+	return rows;
 };
 
-function getMax(arr, prop) {
-    var max;
-    for (var i=0 ; i<arr.length ; i++) {
-        if (!max || parseInt(arr[i][prop]) > parseInt(max[prop]))
-            max = arr[i];
-    }
-    return max;
-};
+// FUNCTION: getMax
+// Returns the max value in an array (numbers only).
+// arr: Array.
+function getMax(arr) {
+	return Math.max.apply(Math, arr);
+}
+king2017max = getMax(getSubjectArray('king2017json', styleSubject));
+pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject));
+spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject));
+benton2017max = getMax(getSubjectArray('benton2017json', styleSubject));
+franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject));
+wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject));
 
-var x = wallawalla2017json;
-console.log(wallawalla2017json[0]['features'][0]['properties']['GEOID']);
-console.log(wallawalla2017json[0].features[0].properties.TRACT2017_TotalPop17);
+// FUNCTION: choropleth5
+// Returns a choropleth color scheme in a break of 5.
+// Takes in the max value of a given subject, and divides it evenly.
+function choropleth5(feature, max) {
+	return feature > max / 5 * 4 ? '#0E103D':
+		   feature > max / 5 * 3 ? '#69306D':
+		   feature > max / 5 * 2 ? '#A5668B':
+		   feature > max / 5 ? '#F2D7EE':'#D3BCC0';
+}
 
-var y = getMax(wallawalla2017json[0].features, properties);
-console.log(y);
-
-
-
-
-**/
-
-// These are just test functions that produces a simple choropleth map.
-// Only applies to King county's population data for now, but I'm trying to automate it so that any 
-// variable can be inputted, and it'll divide up automatically.
-function totalPop17Color(x) {
-	return x > 5000 ? 'green':
-		   x > 2500 ? 'yellow':
-					  'red';
-};		
-
-// 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function totalPop17Style(feature) {
+function layerKingStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
 	return {
-			fillColor: totalPop17Color(feature.properties.TRACT2017_TotalPop17),
-			fillOpacity: 0.50,
+			fillColor: choropleth5(eval(line), king2017max),
+			fillOpacity: 0.75,
 			color: 'black',
 			weight: 0.6, 
 			opacity: 0.75
 	};
 };
 
+function layerPierceStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
+	return {
+			fillColor: choropleth5(eval(line), pierce2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
 
+function layerSpokaneStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
+	return {
+			fillColor: choropleth5(eval(line), spokane2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
 
+function layerBentonStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
+	return {
+			fillColor: choropleth5(eval(line), benton2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
 
+function layerFranklinStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
+	return {
+			fillColor: choropleth5(eval(line), franklin2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
 
+function layerWallaWallaStyle(feature) {
+	var line = 'feature.properties.' + styleSubject;
+	return {
+			fillColor: choropleth5(eval(line), wallawalla2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+/////////////////////////
+//    WEBPAGE / CSS    //  		
+/////////////////////////
+
+// UNDER CONSTRUCTION
+
+///////////////////////////////
+//    INITIALIZING LAYERS    //  		
+///////////////////////////////
+
+setKing2017();
+king2017.addTo(mymap);
+
+setPierce2017();
+pierce2017.addTo(mymap);
+
+setSpokane2017();
+spokane2017.addTo(mymap);
+
+setBenton2017();
+benton2017.addTo(mymap);
+
+setFranklin2017();
+franklin2017.addTo(mymap);
+
+setWallaWalla2017();
+wallawalla2017.addTo(mymap);
 
 
 

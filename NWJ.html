@@ -26,19 +26,125 @@
 		
 		<div id="container">
 			<div id="sidebar">
-				<p>TEST SIDEBAR.</p>
-				<p>Insert toggles here.</p>
-				<p>Focus on Seattle, Spokane, Tacoma, and the Tri-Cities.</p>
-				<p>If we have more time, add more areas to look at.</p>
-				<p>Clicking on a census tract will show a pop-up.</p>
+				<p>TEST SIDEBAR</p>
+				
+				<p>(CTRL+F5 for full refresh/update)</p>
 				
 				<p>2017 Layers:</p>
-				<input type="checkbox" id="toggleLayerKing2017" onchange="toggleLayerKing2017()" checked=true>KING COUNTY </br>
-				<input type="checkbox" id="toggleLayerPierce2017" onchange="toggleLayerPierce2017()">PIERCE COUNTY </br>
-				<input type="checkbox" id="toggleLayerSpokane2017" onchange="toggleLayerSpokane2017()">SPOKANE COUNTY </br>
-				<input type="checkbox" id="toggleLayerBenton2017" onchange="toggleLayerBenton2017()">BENTON COUNTY </br>
-				<input type="checkbox" id="toggleLayerFranklin2017" onchange="toggleLayerFranklin2017()">FRANKLIN COUNTY </br>
-				<input type="checkbox" id="toggleLayerWallaWalla2017" onchange="toggleLayerWallaWalla2017()">WALLA WALLA COUNTY </br>			
+				<input type="checkbox" id="king2017" onchange="toggleLayer('king2017')" checked=true>KING COUNTY </br>
+				<input type="checkbox" id="pierce2017" onchange="toggleLayer('pierce2017')" checked=true>PIERCE COUNTY </br>
+				<input type="checkbox" id="spokane2017" onchange="toggleLayer('spokane2017')" checked=true>SPOKANE COUNTY </br>
+				<input type="checkbox" id="benton2017" onchange="toggleLayer('benton2017')" checked=true>BENTON COUNTY </br>
+				<input type="checkbox" id="franklin2017" onchange="toggleLayer('franklin2017')" checked=true>FRANKLIN COUNTY </br>
+				<input type="checkbox" id="wallawalla2017" onchange="toggleLayer('wallawalla2017')" checked=true>WALLA WALLA COUNTY </br>			
+				
+				<p id="currentSelect"></p>
+				
+				<select id="selectSubject">
+					<option id="TRACT2017_TotalPop17" value="Total Population" selected="selected">Total Population</option>
+					<option id="TRACT2017_TotalHH17" value="Total Households">Total Households</option>
+					<optgroup label="Race">
+						<option id="TRACT2017_White17" value="White">White</option>
+						<option id="TRACT2017_Black17" value="Black">Black</option>
+						<option id="TRACT2017_Native17" value="Native American">Native American</option>
+						<option id="TRACT2017_Asian17" value="Asian">Asian</option>
+					</optgroup>
+					<optgroup label="Specified renter-occupied housing units">
+						<optgroup label="<$10,000">
+							<option id="TRACT2017_R0k0p17" value="Specified renter-occupied housing units, <$10,000, <20%">&lt;20%</option>
+							<option id="TRACT2017_R0k1p17" value="Specified renter-occupied housing units, <$10,000, 20-24%">20-24%</option>
+							<option id="TRACT2017_R0k2p17" value="Specified renter-occupied housing units, <$10,000, 25-29%">25-29%</option>
+							<option id="TRACT2017_R0k3p17" value="Specified renter-occupied housing units, <$10,000, 30-34%">30-34%</option>
+							<option id="TRACT2017_R0k4p17" value="Specified renter-occupied housing units, <$10,000, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_R0k5p17" value="Specified renter-occupied housing units, <$10,000, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_R0k6p17" value="Specified renter-occupied housing units, <$10,000, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$10,000 to $19,999">
+							<option id="TRACT2017_R10k0p17" value="Specified renter-occupied housing units, $10,000 to $19,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_R10k1p17" value="Specified renter-occupied housing units, $10,000 to $19,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_R10k2p17" value="Specified renter-occupied housing units, $10,000 to $19,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_R10k3p17" value="Specified renter-occupied housing units, $10,000 to $19,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_R10k4p17" value="Specified renter-occupied housing units, $10,000 to $19,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_R10k5p17" value="Specified renter-occupied housing units, $10,000 to $19,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_R10k6p17" value="Specified renter-occupied housing units, $10,000 to $19,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$20,000 to $34,999">
+							<option id="TRACT2017_R20k0p17" value="Specified renter-occupied housing units, $20,000 to $34,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_R20k1p17" value="Specified renter-occupied housing units, $20,000 to $34,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_R20k2p17" value="Specified renter-occupied housing units, $20,000 to $34,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_R20k3p17" value="Specified renter-occupied housing units, $20,000 to $34,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_R20k4p17" value="Specified renter-occupied housing units, $20,000 to $34,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_R20k5p17" value="Specified renter-occupied housing units, $20,000 to $34,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_R20k6p17" value="Specified renter-occupied housing units, $20,000 to $34,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$35,000 to $49,999">
+							<option id="TRACT2017_R35k0p17" value="Specified renter-occupied housing units, $35,000 to $49,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_R35k1p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_R35k2p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_R35k3p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_R35k4p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_R35k5p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_R35k6p17" value="Specified renter-occupied housing units, $35,000 to $49,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="=>$50,000">
+							<option id="TRACT2017_R50k0p17" value="Specified renter-occupied housing units, =>$50,000, <20%">&lt;20%</option>
+							<option id="TRACT2017_R50k1p17" value="Specified renter-occupied housing units, =>$50,000, 20-24%">20-24%</option>
+							<option id="TRACT2017_R50k2p17" value="Specified renter-occupied housing units, =>$50,000, 25-29%">25-29%</option>
+							<option id="TRACT2017_R50k3p17" value="Specified renter-occupied housing units, =>$50,000, 30-34%">30-34%</option>
+							<option id="TRACT2017_R50k4p17" value="Specified renter-occupied housing units, =>$50,000, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_R50k5p17" value="Specified renter-occupied housing units, =>$50,000, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_R50k6p17" value="Specified renter-occupied housing units, =>$50,000, >=50%">&gt;=50%</option>
+						</optgroup>
+					</optgroup>
+					<optgroup label="Specified owner-occupied housing units">
+						<optgroup label="<$10,000">
+							<option id="TRACT2017_O0k0p17" value="Specified owner-occupied housing units, <$10,000, <20%">&lt;20%</option>
+							<option id="TRACT2017_O0k1p17" value="Specified owner-occupied housing units, <$10,000, 20-24%">20-24%</option>
+							<option id="TRACT2017_O0k2p17" value="Specified owner-occupied housing units, <$10,000, 25-29%">25-29%</option>
+							<option id="TRACT2017_O0k3p17" value="Specified owner-occupied housing units, <$10,000, 30-34%">30-34%</option>
+							<option id="TRACT2017_O0k4p17" value="Specified owner-occupied housing units, <$10,000, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_O0k5p17" value="Specified owner-occupied housing units, <$10,000, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_O0k6p17" value="Specified owner-occupied housing units, <$10,000, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$10,000 to $19,999">
+							<option id="TRACT2017_O10k0p17" value="Specified owner-occupied housing units, $10,000 to $19,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_O10k1p17" value="Specified owner-occupied housing units, $10,000 to $19,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_O10k2p17" value="Specified owner-occupied housing units, $10,000 to $19,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_O10k3p17" value="Specified owner-occupied housing units, $10,000 to $19,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_O10k4p17" value="Specified owner-occupied housing units, $10,000 to $19,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_O10k5p17" value="Specified owner-occupied housing units, $10,000 to $19,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_O10k6p17" value="Specified owner-occupied housing units, $10,000 to $19,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$20,000 to $34,999">
+							<option id="TRACT2017_O20k0p17" value="Specified owner-occupied housing units, $20,000 to $34,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_O20k1p17" value="Specified owner-occupied housing units, $20,000 to $34,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_O20k2p17" value="Specified owner-occupied housing units, $20,000 to $34,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_O20k3p17" value="Specified owner-occupied housing units, $20,000 to $34,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_O20k4p17" value="Specified owner-occupied housing units, $20,000 to $34,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_O20k5p17" value="Specified owner-occupied housing units, $20,000 to $34,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_O20k6p17" value="Specified owner-occupied housing units, $20,000 to $34,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="$35,000 to $49,999">
+							<option id="TRACT2017_O35k0p17" value="Specified owner-occupied housing units, $35,000 to $49,999, <20%">&lt;20%</option>
+							<option id="TRACT2017_O35k1p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 20-24%">20-24%</option>
+							<option id="TRACT2017_O35k2p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 25-29%">25-29%</option>
+							<option id="TRACT2017_O35k3p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 30-34%">30-34%</option>
+							<option id="TRACT2017_O35k4p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_O35k5p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_O35k6p17" value="Specified owner-occupied housing units, $35,000 to $49,999, >=50%">&gt;=50%</option>
+						</optgroup>
+						<optgroup label="=>$50,000">
+							<option id="TRACT2017_O50k0p17" value="Specified owner-occupied housing units, =>$50,000, <20%">&lt;20%</option>
+							<option id="TRACT2017_O50k1p17" value="Specified owner-occupied housing units, =>$50,000, 20-24%">20-24%</option>
+							<option id="TRACT2017_O50k2p17" value="Specified owner-occupied housing units, =>$50,000, 25-29%">25-29%</option>
+							<option id="TRACT2017_O50k3p17" value="Specified owner-occupied housing units, =>$50,000, 30-34%">30-34%</option>
+							<option id="TRACT2017_O50k4p17" value="Specified owner-occupied housing units, =>$50,000, 35-39.9%">35-39.9%</option>
+							<option id="TRACT2017_O50k5p17" value="Specified owner-occupied housing units, =>$50,000, 40-49.9%">40-49.9%</option>
+							<option id="TRACT2017_O50k6p17" value="Specified owner-occupied housing units, =>$50,000, >=50%">&gt;=50%</option>
+						</optgroup>
+					</optgroup>
+				</select>
+				<input type="button" value="Submit" onclick="changeValue()">
 			</div>
 		
 			<!-- MAP LAYER -->
