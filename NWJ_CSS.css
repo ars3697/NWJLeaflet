@@ -14,6 +14,7 @@ body {
 	width: 0%;
 	display: hidden;
 	font-size: 0;
+	font-size: 0vw;
 	font-family: 'Karla', sans-serif;
 	visibility: hidden;
 	background-color: black;
@@ -26,8 +27,9 @@ body {
 	height: 100vh;
 	display: hidden;
 	font-size: 0;
+	font-size: 0vw;
 	font-family: 'Karla', sans-serif;
-	transition-duration: 0.5s;
+	transition-duration: 0.3s;
 	visibility: hidden;
 	background-color: black;
 	color: white;
@@ -38,12 +40,69 @@ body {
 	height: 100vh;
 	display: block;
 	font-size: 16px;
+	font-size: 1vw;
 	font-family: 'Karla', sans-serif;
-	transition-duration: 0.5s;
+	transition-duration: 0.3s;
 	visibility: visible;
 	background-color: black;
 	color: white;
 }
+
+.ABOUT {
+	transition: 0.25s;
+}
+
+.ABOUT:hover {
+	cursor: pointer;
+}
+
+.ABOUT2 {
+	float: right;
+	z-index: 9999999;
+	position: absolute;
+	width: 15%;
+	height: 0%;
+	right: 0;
+	background-color: black;
+	color: white;
+	font-family: 'Karla', sans-serif;
+	padding: 15px;
+	visibility: hidden;
+}
+
+.normal2 {
+	float: right;
+	z-index: 9999999;
+	position: absolute;
+	width: 15%;
+	height: 0%;
+	right: 0;
+	background-color: black;
+	color: white;
+	font-family: 'Karla', sans-serif;
+	transition-duration: 0.3s;
+	padding: 15px;
+	visibility: hidden;
+	font-size: 0%;
+	font-size: 0vw;
+}
+
+.grow2 {
+	float: right;
+	z-index: 9999999;
+	position: absolute;
+	width: 15%;
+	height: 40%;
+	right: 0;
+	background-color: black;
+	color: white;
+	font-family: 'Karla', sans-serif;
+	transition-duration: 0.3s;
+	padding: 15px;
+	visibility: visible;
+	font-size: 16px;
+	font-size: 1vw;
+}	
 
 p {
 	padding-left: 10px;
@@ -71,7 +130,6 @@ img {
 
 .MAP {
 	height: 95vh;
-	positive: fixed;
 }
 
 .BUTTON, .LOGO, .TITLE {

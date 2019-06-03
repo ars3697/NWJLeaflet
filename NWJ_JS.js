@@ -293,16 +293,30 @@ setUGB2018();
 /////////////////////////
 
 var status = 0;
+var status2 = 0;
 
-document.getElementById('button').addEventListener('click', resize);
+document.getElementById('button').addEventListener('click', sidebarResize);
+document.getElementById('ABOUT').addEventListener('click', aboutResize);
 
-function resize() {
+function sidebarResize() {
 	if (status == 0) {
 		document.getElementById('SIDEBAR').className = 'grow';
 		status = 1;
 	} else {
 		document.getElementById('SIDEBAR').className = 'normal';
 		status = 0;
+	}
+}
+
+function aboutResize() {
+	if (status2 == 0) {
+		document.getElementById('ABOUT2').className = 'grow2';
+		document.getElementById('ABOUT').style.color = 'grey';
+		status2 = 1;
+	} else {
+		document.getElementById('ABOUT2').className = 'normal2';
+		document.getElementById('ABOUT').style.color = 'black';
+		status2 = 0;
 	}
 }
 
