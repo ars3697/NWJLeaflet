@@ -2,7 +2,7 @@
 //      GLOBAL VARIABLES      //  		
 ////////////////////////////////
 
-var king2017, pierce2017, spokane2017, benton2017, franklin2017, wallawalla2017;
+var ugb2018, king2017, pierce2017, spokane2017, benton2017, franklin2017, wallawalla2017;
 var king2017max, pierce2017max, spokane2017max, benton2017max, franklin2017max, wallawalla2017max;
 var styleSubject = 'TRACT2017_TotalPop17';
 var currentSubject = 'Total Population';
@@ -39,6 +39,12 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 //      IMPORTING GEOJSON      //  		
 /////////////////////////////////
 
+function setUGB2018() {
+	ugb2018 = L.geoJSON(ugb2018json, {
+		style: {fillColor: 'red', color: 'red', weight: 0.6, opacity: 1, fillOpacity: 1}
+	});	
+}
+
 // FUNCTION: onEachFeature
 // Enables popups when clicking on a shape in the map.
 function onEachFeature(feature, layer) {
@@ -71,7 +77,6 @@ function setPierce2017() {
 		onEachFeature: onEachFeature
 	});
 }
-
 
 // Adds 2017 Spokane county census tract polygon.
 function setSpokane2017() {
@@ -131,7 +136,8 @@ function changeValue() {
 				eval(checkboxes[i].id).addTo(mymap);
 			};
 		}
-	}
+	};
+	ugb2018.bringToBack();	
 }
 
 // FUNCTION: toggleLayer
@@ -146,6 +152,7 @@ function toggleLayer(getLayer) {
 	} else {
 		eval(getLayer).remove(mymap);
 	}
+	ugb2018.bringToBack();
 };
  
 //////////////////////
@@ -257,12 +264,6 @@ function layerWallaWallaStyle(feature) {
 	};
 };
 
-/////////////////////////
-//    WEBPAGE / CSS    //  		
-/////////////////////////
-
-// UNDER CONSTRUCTION
-
 ///////////////////////////////
 //    INITIALIZING LAYERS    //  		
 ///////////////////////////////
@@ -285,9 +286,33 @@ franklin2017.addTo(mymap);
 setWallaWalla2017();
 wallawalla2017.addTo(mymap);
 
+setUGB2018();
 
+/////////////////////////
+//    WEBPAGE / CSS    //  		
+/////////////////////////
 
+var status = 0;
 
+document.getElementById('button').addEventListener('click', resize);
+
+function resize() {
+	if (status == 0) {
+		document.getElementById('SIDEBAR').className = 'grow';
+		status = 1;
+	} else {
+		document.getElementById('SIDEBAR').className = 'normal';
+		status = 0;
+	}
+}
+
+!function(r,n){"function"==typeof define&&define.amd?define(n):"object"==typeof exports?module.exports=n():r.transformicons=n()}(this||window,function(){"use strict";var r={},n={transform:["click"],revert:["click"]},t=function(r){return"string"==typeof r?Array.prototype.slice.call(document.querySelectorAll(r)):void 0===r||r instanceof Array?r:[r]},o=function(r){return"string"==typeof r?r.toLowerCase().split(" "):r},e=function(r,e,f){var i=(f?"remove":"add")+"EventListener",s=t(r),a=s.length,u={};for(var l in n)u[l]=e&&e[l]?o(e[l]):n[l];for(;a--;)for(var d in u)for(var m=u[d].length;m--;)s[a][i](u[d][m],c)},c=function(n){r.toggle(n.currentTarget)};return r.add=function(n,t){return e(n,t),r},r.remove=function(n,t){return e(n,t,!0),r},r.transform=function(n){return t(n).forEach(function(r){r.classList.add("tcon-transform")}),r},r.revert=function(n){return t(n).forEach(function(r){r.classList.remove("tcon-transform")}),r},r.toggle=function(n){return t(n).forEach(function(n){r[n.classList.contains("tcon-transform")?"revert":"transform"](n)}),r},r});
+
+transformicons.add('.tcon') // add default behavior for all elements with the class .tcon
+.remove('.tcon-menu--xbutterfly') // remove default behavior for the first icon
+.add('.tcon-menu--xbutterfly', {
+	transform: "mouseclick"
+});
 
 
 
