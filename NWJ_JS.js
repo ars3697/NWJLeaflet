@@ -2,11 +2,24 @@
 //      GLOBAL VARIABLES      //  		
 ////////////////////////////////
 
-var ugb2018, king2017, pierce2017, spokane2017, benton2017, franklin2017, wallawalla2017;
+var ugb2018;
+var king2017, pierce2017, spokane2017, benton2017, franklin2017, wallawalla2017;
+var king1990, pierce1990, spokane1990, benton1990, franklin1990, wallawalla1990;
+
 var king2017max, pierce2017max, spokane2017max, benton2017max, franklin2017max, wallawalla2017max;
-var styleSubject = 'TRACT2017_TotalPop17';
-var currentSubject = 'Total Population';
-document.getElementById("currentSelect").innerHTML = "SELECTED: " + currentSubject;
+var king1990max, pierce1990max, spokane1990max, benton1990max, franklin1990max, wallawalla1990max;
+
+var styleSubject2017 = 'TRACT2017_TotalPop17';
+var styleSubject1990 = 'TotalPop90';
+
+var currentSubject2017 = 'Total Population';
+document.getElementById("currentSelect2017").innerHTML = "SELECTED: " + currentSubject2017;
+
+var currentSubject1990 = 'Total Population';
+document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentSubject1990;
+
+// #D3BCC0 #F2D7EE #A5668B #69306D #0E103D [Purple Color Scheme]
+choro5Color = ['#D3BCC0', '#F2D7EE', '#A5668B', '#69306D', '#0E103D'];
 
 ////////////////////////////////
 //      INITIALIZING MAP      //  		
@@ -18,6 +31,12 @@ document.getElementById("currentSelect").innerHTML = "SELECTED: " + currentSubje
 
 // Initializes and modifies map.
 var mymap = L.map('mapid').setView([46.789512, -119.969831], 8);
+
+// OpenStreetMap.Mapnik
+/**L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(mymap);**/
 
 // CartoDB.Positron Basemap
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -43,90 +62,155 @@ function setUGB2018() {
 	ugb2018 = L.geoJSON(ugb2018json, {
 		style: {fillColor: 'red', color: 'red', weight: 0.6, opacity: 1, fillOpacity: 1}
 	});	
-}
+};
 
-// FUNCTION: onEachFeature
-// Enables popups when clicking on a shape in the map.
-function onEachFeature(feature, layer) {
+// FUNCTION: onEachFeature2017
+// Enables popups when clicking on a shape in the map for 2017 layers.
+function onEachFeature2017(feature, layer) {
 	var popupContent = "";
-	var line = 'feature.properties.' + styleSubject;
+	var line = 'feature.properties.' + styleSubject2017;
 	if (feature.properties && feature.properties.NAMELSAD) {
-		popupContent += "Name: " + feature.properties.NAMELSAD + ", ";
+		popupContent += "2017, Name: " + feature.properties.NAMELSAD + ", ";
 	}
 	
 	if (feature.properties && eval(line)) {
-		popupContent += currentSubject + ": " + eval(line) + " ";
+		popupContent += currentSubject2017 + ": " + eval(line) + " ";
 	}
 	layer.bindPopup(popupContent);
-}
+};
+
+// FUNCTION: onEachFeature1990
+// Enables popups when clicking on a shape in the map for 1990 layers.
+function onEachFeature1990(feature, layer) {
+	var popupContent = "";
+	var line = 'feature.properties.' + styleSubject1990;
+	if (feature.properties && feature.properties.NAMELSAD10) {
+		popupContent += "1990, Name: " + feature.properties.NAMELSAD10 + ", ";
+	}
+	
+	if (feature.properties && eval(line)) {
+		popupContent += currentSubject1990 + ": " + eval(line) + " ";
+	}
+	layer.bindPopup(popupContent);
+};
 
 // 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Adds 2017 King county census tract polygon.
 function setKing2017() {
 	king2017 = L.geoJSON(king2017json, {
-		style: layerKingStyle,
-		onEachFeature: onEachFeature
+		style: layerKing2017Style,
+		onEachFeature: onEachFeature2017
 	});	
-}
+};
 
 // Adds 2017 Pierce county census tract polygon.
 function setPierce2017() {
 	pierce2017 = L.geoJSON(pierce2017json, {
-		style: layerPierceStyle,
-		onEachFeature: onEachFeature
+		style: layerPierce2017Style,
+		onEachFeature: onEachFeature2017
 	});
-}
+};
 
 // Adds 2017 Spokane county census tract polygon.
 function setSpokane2017() {
 	spokane2017 = L.geoJSON(spokane2017json, {
-		style: layerSpokaneStyle,
-		onEachFeature: onEachFeature
+		style: layerSpokane2017Style,
+		onEachFeature: onEachFeature2017
 	});
-}
+};
 
 // Adds 2017 Benton county census tract polygons.
 function setBenton2017() {
 	benton2017 = L.geoJSON(benton2017json, {
-		style: layerBentonStyle,
-		onEachFeature: onEachFeature
+		style: layerBenton2017Style,
+		onEachFeature: onEachFeature2017
 	});
-}
+};
 
 // Adds 2017 Franklin county census tract polygons.
 function setFranklin2017() {
 	franklin2017 = L.geoJSON(franklin2017json, {
-		style: layerFranklinStyle,
-		onEachFeature: onEachFeature
+		style: layerFranklin2017Style,
+		onEachFeature: onEachFeature2017
 	});
-}
+};
 
 // Adds 2017 Walla Walla county census tract polygons.
 function setWallaWalla2017() {
 	wallawalla2017 = L.geoJSON(wallawalla2017json, {
-		style: layerWallaWallaStyle,
-		onEachFeature: onEachFeature
+		style: layerWallaWalla2017Style,
+		onEachFeature: onEachFeature2017
 	});
-}
+};
+
+// 1990 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Adds 1990 King county census tract polygon.
+function setKing1990() {
+	king1990 = L.geoJSON(king1990json, {
+		style: layerKing1990Style,
+		onEachFeature: onEachFeature1990
+	});	
+};
+
+// Adds 1990 Pierce county census tract polygon.
+function setPierce1990() {
+	pierce1990 = L.geoJSON(pierce1990json, {
+		style: layerPierce1990Style,
+		onEachFeature: onEachFeature1990
+	});
+};
+
+// Adds 1990 Spokane county census tract polygon.
+function setSpokane1990() {
+	spokane1990 = L.geoJSON(spokane1990json, {
+		style: layerSpokane1990Style,
+		onEachFeature: onEachFeature1990
+	});
+};
+
+// Adds 1990 Benton county census tract polygons.
+function setBenton1990() {
+	benton1990 = L.geoJSON(benton1990json, {
+		style: layerBenton1990Style,
+		onEachFeature: onEachFeature1990
+	});
+};
+
+// Adds 1990 Franklin county census tract polygons.
+function setFranklin1990() {
+	franklin1990 = L.geoJSON(franklin1990json, {
+		style: layerFranklin1990Style,
+		onEachFeature: onEachFeature1990
+	});
+};
+
+// Adds 1990 Walla Walla county census tract polygons.
+function setWallaWalla1990() {
+	wallawalla1990 = L.geoJSON(wallawalla1990json, {
+		style: layerWallaWalla1990Style,
+		onEachFeature: onEachFeature1990
+	});
+};
 
 //////////////////////
 //      TOGGLES     //  		
 //////////////////////
 
-function changeValue() {
-	var e = document.getElementById("selectSubject");
-	styleSubject = e.options[e.selectedIndex].id;
-	currentSubject = e.options[e.selectedIndex].value;
-	document.getElementById("currentSelect").innerHTML = "SELECTED: " + currentSubject;
+function changeValue2017() {
+	var e = document.getElementById("selectSubject2017");
+	styleSubject2017 = e.options[e.selectedIndex].id;
+	currentSubject2017 = e.options[e.selectedIndex].value;
+	document.getElementById("currentSelect2017").innerHTML = "SELECTED: " + currentSubject2017;
 	king2017.remove(mymap);pierce2017.remove(mymap);spokane2017.remove(mymap);benton2017.remove(mymap);franklin2017.remove(mymap);wallawalla2017.remove(mymap);
 	
-	king2017max = getMax(getSubjectArray('king2017json', styleSubject));
-	pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject));
-	spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject));
-	benton2017max = getMax(getSubjectArray('benton2017json', styleSubject));
-	franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject));
-	wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject));
+	king2017max = getMax(getSubjectArray('king2017json', styleSubject2017));
+	pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject2017));
+	spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject2017));
+	benton2017max = getMax(getSubjectArray('benton2017json', styleSubject2017));
+	franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject2017));
+	wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject2017));
 	
 	setKing2017();setPierce2017();setSpokane2017();setBenton2017();setFranklin2017();setWallaWalla2017();
 	var checkboxes = document.getElementsByTagName('input');
@@ -138,7 +222,33 @@ function changeValue() {
 		}
 	};
 	ugb2018.bringToBack();	
-}
+};
+
+function changeValue1990() {
+	var e = document.getElementById("selectSubject1990");
+	styleSubject1990 = e.options[e.selectedIndex].id;
+	currentSubject1990 = e.options[e.selectedIndex].value;
+	document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentSubject1990;
+	king1990.remove(mymap);pierce1990.remove(mymap);spokane1990.remove(mymap);benton1990.remove(mymap);franklin1990.remove(mymap);wallawalla1990.remove(mymap);
+	
+	king1990max = getMax(getSubjectArray('king1990json', styleSubject1990));
+	pierce1990max = getMax(getSubjectArray('pierce1990json', styleSubject1990));
+	spokane1990max = getMax(getSubjectArray('spokane1990json', styleSubject1990));
+	benton1990max = getMax(getSubjectArray('benton1990json', styleSubject1990));
+	franklin1990max = getMax(getSubjectArray('franklin1990json', styleSubject1990));
+	wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject1990));
+	
+	setKing1990();setPierce1990();setSpokane1990();setBenton1990();setFranklin1990();setWallaWalla1990();
+	var checkboxes = document.getElementsByTagName('input');
+	for(var i=0; i<checkboxes.length; i++){
+		if(checkboxes[i].getAttribute('type')=='checkbox'){
+			if(checkboxes[i].checked){
+				eval(checkboxes[i].id).addTo(mymap);
+			};
+		}
+	};
+	ugb2018.bringToBack();	
+};
 
 // FUNCTION: toggleLayer
 // Enables the county layer to show up on the map.
@@ -181,25 +291,35 @@ function getSubjectArray (county, subject) {
 function getMax(arr) {
 	return Math.max.apply(Math, arr);
 }
-king2017max = getMax(getSubjectArray('king2017json', styleSubject));
-pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject));
-spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject));
-benton2017max = getMax(getSubjectArray('benton2017json', styleSubject));
-franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject));
-wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject));
+king2017max = getMax(getSubjectArray('king2017json', styleSubject2017));
+pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject2017));
+spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject2017));
+benton2017max = getMax(getSubjectArray('benton2017json', styleSubject2017));
+franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject2017));
+wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject2017));
+
+king1990max = getMax(getSubjectArray('king1990json', styleSubject1990));
+pierce1990max = getMax(getSubjectArray('pierce1990json', styleSubject1990));
+spokane1990max = getMax(getSubjectArray('spokane1990json', styleSubject1990));
+benton1990max = getMax(getSubjectArray('benton1990json', styleSubject1990));
+franklin1990max = getMax(getSubjectArray('franklin1990json', styleSubject1990));
+wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject1990));
 
 // FUNCTION: choropleth5
 // Returns a choropleth color scheme in a break of 5.
 // Takes in the max value of a given subject, and divides it evenly.
 function choropleth5(feature, max) {
-	return feature > max / 5 * 4 ? '#0E103D':
-		   feature > max / 5 * 3 ? '#69306D':
-		   feature > max / 5 * 2 ? '#A5668B':
-		   feature > max / 5 ? '#F2D7EE':'#D3BCC0';
+	return feature > max / 5 * 4 ? choro5Color[4]:
+		   feature > max / 5 * 3 ? choro5Color[3]:
+		   feature > max / 5 * 2 ? choro5Color[2]:
+		   feature > max / 5 ? choro5Color[1]:
+		   feature == 0 ? 'white': choro5Color[0];
 }
 
-function layerKingStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+// 2017 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function layerKing2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), king2017max),
 			fillOpacity: 0.75,
@@ -209,8 +329,8 @@ function layerKingStyle(feature) {
 	};
 };
 
-function layerPierceStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+function layerPierce2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), pierce2017max),
 			fillOpacity: 0.75,
@@ -220,8 +340,8 @@ function layerPierceStyle(feature) {
 	};
 };
 
-function layerSpokaneStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+function layerSpokane2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), spokane2017max),
 			fillOpacity: 0.75,
@@ -231,8 +351,8 @@ function layerSpokaneStyle(feature) {
 	};
 };
 
-function layerBentonStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+function layerBenton2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), benton2017max),
 			fillOpacity: 0.75,
@@ -242,8 +362,8 @@ function layerBentonStyle(feature) {
 	};
 };
 
-function layerFranklinStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+function layerFranklin2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), franklin2017max),
 			fillOpacity: 0.75,
@@ -253,10 +373,78 @@ function layerFranklinStyle(feature) {
 	};
 };
 
-function layerWallaWallaStyle(feature) {
-	var line = 'feature.properties.' + styleSubject;
+function layerWallaWalla2017Style(feature) {
+	var line = 'feature.properties.' + styleSubject2017;
 	return {
 			fillColor: choropleth5(eval(line), wallawalla2017max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+// 1990 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function layerKing1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), king1990max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+function layerPierce1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), pierce1990max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+function layerSpokane1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), spokane1990max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+function layerBenton1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), benton1990max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+function layerFranklin1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), franklin1990max),
+			fillOpacity: 0.75,
+			color: 'black',
+			weight: 0.6, 
+			opacity: 0.75
+	};
+};
+
+function layerWallaWalla1990Style(feature) {
+	var line = 'feature.properties.' + styleSubject1990;
+	return {
+			fillColor: choropleth5(eval(line), wallawalla1990max),
 			fillOpacity: 0.75,
 			color: 'black',
 			weight: 0.6, 
@@ -285,6 +473,13 @@ franklin2017.addTo(mymap);
 
 setWallaWalla2017();
 wallawalla2017.addTo(mymap);
+
+setKing1990();
+setPierce1990();
+setSpokane1990();
+setBenton1990();
+setFranklin1990();
+setWallaWalla1990();
 
 setUGB2018();
 
@@ -327,17 +522,6 @@ transformicons.add('.tcon') // add default behavior for all elements with the cl
 .add('.tcon-menu--xbutterfly', {
 	transform: "mouseclick"
 });
-
-var king1990;
-
-function setKing1990() {
-	king1990 = L.geoJSON(king1990json, {
-		style: {fillColor: 'red', color: 'red', weight: 0.6, opacity: 1, fillOpacity: 1}
-	});	
-}
-
-setKing1990();
-king1990.addTo(mymap);
 
 
 

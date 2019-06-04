@@ -108,7 +108,7 @@ body {
 	font-size: 1vw;
 }	
 
-p {
+.pSidebar {
 	padding-left: 10px;
 }
 
@@ -132,6 +132,20 @@ img {
 	height: 90%;
 }
 
+.LEGEND {
+	font-family: 'Karla', sans-serif;
+	color: white;
+	background-color: black;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding: 10px;
+	z-index: 9999999;
+	width: 92.64px;
+	height: 250px;
+	font-size: 80%;
+}
+
 .MAIN {
 	height: 94.65vh;
 	height: calc(100vh - 50px);
@@ -149,6 +163,26 @@ img {
 .ABOUT {
 	float: right;
 	margin-right: 15px;
+}
+
+.square {
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	margin-right: 5px;
+}
+
+.break0 {background: white;}
+.break1 {background: #D3BCC0;}
+.break2 {background: #F2D7EE;}
+.break3 {background: #A5668B;}
+.break4 {background: #69306D;}
+.break5 {background: #0E103D;}
+
+.pLegend {
+	margin: 0;
+	padding: 0;
 }
 
 /****************/
