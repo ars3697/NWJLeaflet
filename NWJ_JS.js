@@ -328,7 +328,16 @@ transformicons.add('.tcon') // add default behavior for all elements with the cl
 	transform: "mouseclick"
 });
 
+var king1990;
 
+function setKing1990() {
+	king1990 = L.geoJSON(king1990json, {
+		style: {fillColor: 'red', color: 'red', weight: 0.6, opacity: 1, fillOpacity: 1}
+	});	
+}
+
+setKing1990();
+king1990.addTo(mymap);
 
 
 
