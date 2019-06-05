@@ -262,28 +262,7 @@ function changeValue2017() {
 	currentSubject2017 = e.options[e.selectedIndex].value;
 	document.getElementById("currentSelect2017").innerHTML = "SELECTED: " + currentSubject2017;
 	king2017.remove(mymap);pierce2017.remove(mymap);spokane2017.remove(mymap);benton2017.remove(mymap);franklin2017.remove(mymap);wallawalla2017.remove(mymap);
-
-	king2017arr = getSubjectArray('king2017json', styleSubject2017);
-	pierce2017arr = getSubjectArray('pierce2017json', styleSubject2017);
-	spokane2017arr = getSubjectArray('spokane2017json', styleSubject2017); 
-	benton2017arr = getSubjectArray('benton2017json', styleSubject2017);
-	franklin2017arr = getSubjectArray('franklin2017json', styleSubject2017);
-	wallawalla2017arr = getSubjectArray('wallawalla2017json', styleSubject2017);
-
-	king2017acc = add(king2017arr);
-	pierce2017acc = add(pierce2017arr);
-	spokane2017acc = add(spokane2017arr);
-	benton2017acc = add(benton2017arr);
-	franklin2017acc = add(franklin2017arr);
-	wallawalla2017acc = add(wallawalla2017arr);
-
-	king2017max = getMax(king2017arr);
-	pierce2017max = getMax(pierce2017arr);
-	spokane2017max = getMax(spokane2017arr);
-	benton2017max = getMax(benton2017arr);
-	franklin2017max = getMax(franklin2017arr);
-	wallawalla2017max = getMax(wallawalla2017arr);
-
+	refresh2017();
 	setKing2017();setPierce2017();setSpokane2017();setBenton2017();setFranklin2017();setWallaWalla2017();
 	var checkboxes = document.getElementsByTagName('input');
 	for(var i=0; i<checkboxes.length; i++){
@@ -302,28 +281,7 @@ function changeValue1990() {
 	currentSubject1990 = e.options[e.selectedIndex].value;
 	document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentSubject1990;
 	king1990.remove(mymap);pierce1990.remove(mymap);spokane1990.remove(mymap);benton1990.remove(mymap);franklin1990.remove(mymap);wallawalla1990.remove(mymap);
-
-	king1990arr = getSubjectArray('king1990json', styleSubject1990);
-	pierce1990arr = getSubjectArray('pierce1990json', styleSubject1990);
-	spokane1990arr = getSubjectArray('spokane1990json', styleSubject1990); 
-	benton1990arr = getSubjectArray('benton1990json', styleSubject1990);
-	franklin1990arr = getSubjectArray('franklin1990json', styleSubject1990);
-	wallawalla1990arr = getSubjectArray('wallawalla1990json', styleSubject1990);
-
-	king1990acc = add(king1990arr);
-	pierce1990acc = add(pierce1990arr);
-	spokane1990acc = add(spokane1990arr);
-	benton1990acc = add(benton1990arr);
-	franklin1990acc = add(franklin1990arr);
-	wallawalla1990acc = add(wallawalla1990arr);
-
-	king1990max = getMax(king1990arr);
-	pierce1990max = getMax(pierce1990arr);
-	spokane1990max = getMax(spokane1990arr);
-	benton1990max = getMax(benton1990arr);
-	franklin1990max = getMax(franklin1990arr);
-	wallawalla1990max = getMax(wallawalla1990arr);
-
+	refresh1990();
 	setKing1990();setPierce1990();setSpokane1990();setBenton1990();setFranklin1990();setWallaWalla1990();
 	var checkboxes = document.getElementsByTagName('input');
 	for(var i=0; i<checkboxes.length; i++){
@@ -378,47 +336,58 @@ function getMax(arr) {
 	return Math.max.apply(Math, arr);
 }
 
-king2017arr = getSubjectArray('king2017json', styleSubject2017);
-pierce2017arr = getSubjectArray('pierce2017json', styleSubject2017);
-spokane2017arr = getSubjectArray('spokane2017json', styleSubject2017); 
-benton2017arr = getSubjectArray('benton2017json', styleSubject2017);
-franklin2017arr = getSubjectArray('franklin2017json', styleSubject2017);
-wallawalla2017arr = getSubjectArray('wallawalla2017json', styleSubject2017);
+///////////////////
+//    REFRESH    //
+///////////////////
 
-king2017acc = add(king2017arr);
-pierce2017acc = add(pierce2017arr);
-spokane2017acc = add(spokane2017arr);
-benton2017acc = add(benton2017arr);
-franklin2017acc = add(franklin2017arr);
-wallawalla2017acc = add(wallawalla2017arr);
+function refresh2017() {
+	king2017arr = getSubjectArray('king2017json', styleSubject2017);
+	pierce2017arr = getSubjectArray('pierce2017json', styleSubject2017);
+	spokane2017arr = getSubjectArray('spokane2017json', styleSubject2017); 
+	benton2017arr = getSubjectArray('benton2017json', styleSubject2017);
+	franklin2017arr = getSubjectArray('franklin2017json', styleSubject2017);
+	wallawalla2017arr = getSubjectArray('wallawalla2017json', styleSubject2017);
 
-king2017max = getMax(king2017arr);
-pierce2017max = getMax(pierce2017arr);
-spokane2017max = getMax(spokane2017arr);
-benton2017max = getMax(benton2017arr);
-franklin2017max = getMax(franklin2017arr);
-wallawalla2017max = getMax(wallawalla2017arr);
+	king2017acc = add(king2017arr);
+	pierce2017acc = add(pierce2017arr);
+	spokane2017acc = add(spokane2017arr);
+	benton2017acc = add(benton2017arr);
+	franklin2017acc = add(franklin2017arr);
+	wallawalla2017acc = add(wallawalla2017arr);
 
-king1990arr = getSubjectArray('king1990json', styleSubject1990);
-pierce1990arr = getSubjectArray('pierce1990json', styleSubject1990);
-spokane1990arr = getSubjectArray('spokane1990json', styleSubject1990); 
-benton1990arr = getSubjectArray('benton1990json', styleSubject1990);
-franklin1990arr = getSubjectArray('franklin1990json', styleSubject1990);
-wallawalla1990arr = getSubjectArray('wallawalla1990json', styleSubject1990);
+	king2017max = getMax(king2017arr);
+	pierce2017max = getMax(pierce2017arr);
+	spokane2017max = getMax(spokane2017arr);
+	benton2017max = getMax(benton2017arr);
+	franklin2017max = getMax(franklin2017arr);
+	wallawalla2017max = getMax(wallawalla2017arr);
+};
 
-king1990acc = add(king1990arr);
-pierce1990acc = add(pierce1990arr);
-spokane1990acc = add(spokane1990arr);
-benton1990acc = add(benton1990arr);
-franklin1990acc = add(franklin1990arr);
-wallawalla1990acc = add(wallawalla1990arr);
+function refresh1990() {
+	king1990arr = getSubjectArray('king1990json', styleSubject1990);
+	pierce1990arr = getSubjectArray('pierce1990json', styleSubject1990);
+	spokane1990arr = getSubjectArray('spokane1990json', styleSubject1990); 
+	benton1990arr = getSubjectArray('benton1990json', styleSubject1990);
+	franklin1990arr = getSubjectArray('franklin1990json', styleSubject1990);
+	wallawalla1990arr = getSubjectArray('wallawalla1990json', styleSubject1990);
 
-king1990max = getMax(king1990arr);
-pierce1990max = getMax(pierce1990arr);
-spokane1990max = getMax(spokane1990arr);
-benton1990max = getMax(benton1990arr);
-franklin1990max = getMax(franklin1990arr);
-wallawalla1990max = getMax(wallawalla1990arr);
+	king1990acc = add(king1990arr);
+	pierce1990acc = add(pierce1990arr);
+	spokane1990acc = add(spokane1990arr);
+	benton1990acc = add(benton1990arr);
+	franklin1990acc = add(franklin1990arr);
+	wallawalla1990acc = add(wallawalla1990arr);
+
+	king1990max = getMax(king1990arr);
+	pierce1990max = getMax(pierce1990arr);
+	spokane1990max = getMax(spokane1990arr);
+	benton1990max = getMax(benton1990arr);
+	franklin1990max = getMax(franklin1990arr);
+	wallawalla1990max = getMax(wallawalla1990arr);
+};
+
+refresh2017();
+refresh1990();
 
 // FUNCTION: choropleth5
 // Returns a choropleth color scheme in a break of 5.
