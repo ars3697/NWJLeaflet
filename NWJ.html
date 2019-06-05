@@ -10,17 +10,17 @@
 		<script src="leaflet.js"></script>
 		<!-- KARLA FONT -->
 		<link href="https://fonts.googleapis.com/css?family=Karla&display=swap" rel="stylesheet">
-		
+
 		<!-- IMPORTING GEOJSON + DATA TABLES -->
 		<script src="data/UrbanGrowthBoundary2018/UBG2018.js"></script> <!-- 2018 geoJSON (for Urban Growth Boundaries). VARIABLE: ubg2018json -->
-		
+
 		<script src="data/2017/KING2017.js"></script> <!-- 2017 geoJSON (for King county). VARIABLE: king2017json -->
 		<script src="data/2017/PIERCE2017.js"></script> <!-- 2017 geoJSON (for Pierce county). VARIABLE: pierce2017json -->
 		<script src="data/2017/SPOKANE2017.js"></script> <!-- 2017 geoJSON (for Spokane county). VARIABLE: spokane2017json -->
 		<script src="data/2017/BENTON2017.js"></script> <!-- 2017 geoJSON (for Benton county). VARIABLE: benton2017json -->
 		<script src="data/2017/FRANKLIN2017.js"></script> <!-- 2017 geoJSON (for Franklin county). VARIABLE: franklin2017json -->
 		<script src="data/2017/WALLAWALLA2017.js"></script> <!-- 2017 geoJSON (for Walla Walla county). VARIABLE: wallawalla2017json -->
-		
+
 		<script src="data/1990/KING1990.js"></script> <!-- 1990 geoJSON (for King county). VARIABLE: king1990json -->
 		<script src="data/1990/PIERCE1990.js"></script> <!-- 1990 geoJSON (for Pierce county). VARIABLE: pierce1990json -->
 		<script src="data/1990/SPOKANE1990.js"></script> <!-- 1990 geoJSON (for Spokane county). VARIABLE: spokane1990json -->
@@ -31,20 +31,20 @@
 
 	<body>
 		<div class="SIDEBAR" id="SIDEBAR">
-			
+
 			</br>
 			<input class="checkbox" type="checkbox" id="ugb2018" onchange="toggleLayer('ugb2018')">UGB 2018 </br>
-			
+
 			<p class="pSidebar">2017 LAYERS:</p>
 			<input class="checkbox" type="checkbox" id="king2017" onchange="toggleLayer('king2017')" checked=true>KING COUNTY </br>
 			<input class="checkbox" type="checkbox" id="pierce2017" onchange="toggleLayer('pierce2017')" checked=true>PIERCE COUNTY </br>
 			<input class="checkbox" type="checkbox" id="spokane2017" onchange="toggleLayer('spokane2017')" checked=true>SPOKANE COUNTY </br>
 			<input class="checkbox" type="checkbox" id="benton2017" onchange="toggleLayer('benton2017')" checked=true>BENTON COUNTY </br>
 			<input class="checkbox" type="checkbox" id="franklin2017" onchange="toggleLayer('franklin2017')" checked=true>FRANKLIN COUNTY </br>
-			<input class="checkbox" type="checkbox" id="wallawalla2017" onchange="toggleLayer('wallawalla2017')" checked=true>WALLA WALLA COUNTY </br>			
-			
+			<input class="checkbox" type="checkbox" id="wallawalla2017" onchange="toggleLayer('wallawalla2017')" checked=true>WALLA WALLA COUNTY </br>
+
 			<p class="pSidebar" id="currentSelect2017"></p>
-			
+
 			<select id="selectSubject2017">
 				<option id="TRACT2017_TotalPop17" value="Total Population" selected="selected">Total Population</option>
 				<option id="TRACT2017_TotalHH17" value="Total Households">Total Households</option>
@@ -91,14 +91,32 @@
 						<option id="TRACT2017_R35k5p17" value="Specified renter-occupied housing units, $35,000 to $49,999, 40-49.9%">40-49.9%</option>
 						<option id="TRACT2017_R35k6p17" value="Specified renter-occupied housing units, $35,000 to $49,999, >=50%">&gt;=50%</option>
 					</optgroup>
-					<optgroup label="=>$50,000">
-						<option id="TRACT2017_R50k0p17" value="Specified renter-occupied housing units, =>$50,000, <20%">&lt;20%</option>
-						<option id="TRACT2017_R50k1p17" value="Specified renter-occupied housing units, =>$50,000, 20-24%">20-24%</option>
-						<option id="TRACT2017_R50k2p17" value="Specified renter-occupied housing units, =>$50,000, 25-29%">25-29%</option>
-						<option id="TRACT2017_R50k3p17" value="Specified renter-occupied housing units, =>$50,000, 30-34%">30-34%</option>
-						<option id="TRACT2017_R50k4p17" value="Specified renter-occupied housing units, =>$50,000, 35-39.9%">35-39.9%</option>
-						<option id="TRACT2017_R50k5p17" value="Specified renter-occupied housing units, =>$50,000, 40-49.9%">40-49.9%</option>
-						<option id="TRACT2017_R50k6p17" value="Specified renter-occupied housing units, =>$50,000, >=50%">&gt;=50%</option>
+					<optgroup label="$50,000 to $74,999">
+						<option id="TRACT2017_R50k0p17" value="Specified renter-occupied housing units, $50,000 to $74,999, <20%">&lt;20%</option>
+						<option id="TRACT2017_R50k1p17" value="Specified renter-occupied housing units, $50,000 to $74,999, 20-24%">20-24%</option>
+						<option id="TRACT2017_R50k2p17" value="Specified renter-occupied housing units, $50,000 to $74,999, 25-29%">25-29%</option>
+						<option id="TRACT2017_R50k3p17" value="Specified renter-occupied housing units, $50,000 to $74,999, 30-34%">30-34%</option>
+						<option id="TRACT2017_R50k4p17" value="Specified renter-occupied housing units, $50,000 to $74,999, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_R50k5p17" value="Specified renter-occupied housing units, $50,000 to $74,999, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_R50k6p17" value="Specified renter-occupied housing units, $50,000 to $74,999, >=50%">&gt;=50%</option>
+					</optgroup>
+					<optgroup label="$75,000 to $99,999">
+						<option id="TRACT2017_R75k0p17" value="Specified renter-occupied housing units, $75,000 to $99,999, <20%">&lt;20%</option>
+						<option id="TRACT2017_R75k1p17" value="Specified renter-occupied housing units, $75,000 to $99,999, 20-24%">20-24%</option>
+						<option id="TRACT2017_R75k2p17" value="Specified renter-occupied housing units, $75,000 to $99,999, 25-29%">25-29%</option>
+						<option id="TRACT2017_R75k3p17" value="Specified renter-occupied housing units, $75,000 to $99,999, 30-34%">30-34%</option>
+						<option id="TRACT2017_R75k4p17" value="Specified renter-occupied housing units, $75,000 to $99,999, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_R75k5p17" value="Specified renter-occupied housing units, $75,000 to $99,999, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_R75k6p17" value="Specified renter-occupied housing units, $75,000 to $99,999, >=50%">&gt;=50%</option>
+					</optgroup>
+					<optgroup label=">=$100,000">
+						<option id="TRACT2017_R100k0p17" value="Specified renter-occupied housing units, >=$100,000, <20%">&lt;20%</option>
+						<option id="TRACT2017_R100k1p17" value="Specified renter-occupied housing units, >=$100,000, 20-24%">20-24%</option>
+						<option id="TRACT2017_R100k2p17" value="Specified renter-occupied housing units, >=$100,000, 25-29%">25-29%</option>
+						<option id="TRACT2017_R100k3p17" value="Specified renter-occupied housing units, >=$100,000, 30-34%">30-34%</option>
+						<option id="TRACT2017_R100k4p17" value="Specified renter-occupied housing units, >=$100,000, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_R100k5p17" value="Specified renter-occupied housing units, >=$100,000, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_R100k6p17" value="Specified renter-occupied housing units, >=$100,000, >=50%">&gt;=50%</option>
 					</optgroup>
 				</optgroup>
 				<optgroup label="Specified owner-occupied housing units">
@@ -138,19 +156,37 @@
 						<option id="TRACT2017_O35k5p17" value="Specified owner-occupied housing units, $35,000 to $49,999, 40-49.9%">40-49.9%</option>
 						<option id="TRACT2017_O35k6p17" value="Specified owner-occupied housing units, $35,000 to $49,999, >=50%">&gt;=50%</option>
 					</optgroup>
-					<optgroup label="=>$50,000">
-						<option id="TRACT2017_O50k0p17" value="Specified owner-occupied housing units, =>$50,000, <20%">&lt;20%</option>
-						<option id="TRACT2017_O50k1p17" value="Specified owner-occupied housing units, =>$50,000, 20-24%">20-24%</option>
-						<option id="TRACT2017_O50k2p17" value="Specified owner-occupied housing units, =>$50,000, 25-29%">25-29%</option>
-						<option id="TRACT2017_O50k3p17" value="Specified owner-occupied housing units, =>$50,000, 30-34%">30-34%</option>
-						<option id="TRACT2017_O50k4p17" value="Specified owner-occupied housing units, =>$50,000, 35-39.9%">35-39.9%</option>
-						<option id="TRACT2017_O50k5p17" value="Specified owner-occupied housing units, =>$50,000, 40-49.9%">40-49.9%</option>
-						<option id="TRACT2017_O50k6p17" value="Specified owner-occupied housing units, =>$50,000, >=50%">&gt;=50%</option>
+					<optgroup label="$50,000 to $74,999">
+						<option id="TRACT2017_O50k0p17" value="Specified owner-occupied housing units, $50,000 to $74,999, <20%">&lt;20%</option>
+						<option id="TRACT2017_O50k1p17" value="Specified owner-occupied housing units, $50,000 to $74,999, 20-24%">20-24%</option>
+						<option id="TRACT2017_O50k2p17" value="Specified owner-occupied housing units, $50,000 to $74,999, 25-29%">25-29%</option>
+						<option id="TRACT2017_O50k3p17" value="Specified owner-occupied housing units, $50,000 to $74,999, 30-34%">30-34%</option>
+						<option id="TRACT2017_O50k4p17" value="Specified owner-occupied housing units, $50,000 to $74,999, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_O50k5p17" value="Specified owner-occupied housing units, $50,000 to $74,999, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_O50k6p17" value="Specified owner-occupied housing units, $50,000 to $74,999, >=50%">&gt;=50%</option>
+					</optgroup>
+					<optgroup label="$75,000 to $99,999">
+						<option id="TRACT2017_O75k0p17" value="Specified owner-occupied housing units, $75,000 to $99,999, <20%">&lt;20%</option>
+						<option id="TRACT2017_O75k1p17" value="Specified owner-occupied housing units, $75,000 to $99,999, 20-24%">20-24%</option>
+						<option id="TRACT2017_O75k2p17" value="Specified owner-occupied housing units, $75,000 to $99,999, 25-29%">25-29%</option>
+						<option id="TRACT2017_O75k3p17" value="Specified owner-occupied housing units, $75,000 to $99,999, 30-34%">30-34%</option>
+						<option id="TRACT2017_O75k4p17" value="Specified owner-occupied housing units, $75,000 to $99,999, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_O75k5p17" value="Specified owner-occupied housing units, $75,000 to $99,999, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_O75k6p17" value="Specified owner-occupied housing units, $75,000 to $99,999, >=50%">&gt;=50%</option>
+					</optgroup>
+					<optgroup label=">=$100,000">
+						<option id="TRACT2017_O100k0p17" value="Specified owner-occupied housing units, >=$100,000, <20%">&lt;20%</option>
+						<option id="TRACT2017_O100k1p17" value="Specified owner-occupied housing units, >=$100,000, 20-24%">20-24%</option>
+						<option id="TRACT2017_O100k2p17" value="Specified owner-occupied housing units, >=$100,000, 25-29%">25-29%</option>
+						<option id="TRACT2017_O100k3p17" value="Specified owner-occupied housing units, >=$100,000, 30-34%">30-34%</option>
+						<option id="TRACT2017_O100k4p17" value="Specified owner-occupied housing units, >=$100,000, 35-39.9%">35-39.9%</option>
+						<option id="TRACT2017_O100k5p17" value="Specified owner-occupied housing units, >=$100,000, 40-49.9%">40-49.9%</option>
+						<option id="TRACT2017_O100k6p17" value="Specified owner-occupied housing units, >=$100,000, >=50%">&gt;=50%</option>
 					</optgroup>
 				</optgroup>
 			</select>
 			<input type="button" id="submit" value="Submit" onclick="changeValue2017()">
-		
+
 			<p class="pSidebar">1990 LAYERS:</p>
 			<input class="checkbox" type="checkbox" id="king1990" onchange="toggleLayer('king1990')">KING COUNTY </br>
 			<input class="checkbox" type="checkbox" id="pierce1990" onchange="toggleLayer('pierce1990')">PIERCE COUNTY </br>
@@ -158,9 +194,9 @@
 			<input class="checkbox" type="checkbox" id="benton1990" onchange="toggleLayer('benton1990')">BENTON COUNTY </br>
 			<input class="checkbox" type="checkbox" id="franklin1990" onchange="toggleLayer('franklin1990')">FRANKLIN COUNTY </br>
 			<input class="checkbox" type="checkbox" id="wallawalla1990" onchange="toggleLayer('wallawalla1990')">WALLA WALLA COUNTY </br>
-			
+
 			<p class="pSidebar" id="currentSelect1990"></p>
-			
+
 			<select id="selectSubject1990">
 				<option id="TotalPop90" value="Total Population" selected="selected">Total Population</option>
 				<option id="TotalHH90" value="Total Households">Total Households</option>
@@ -267,8 +303,8 @@
 			</select>
 			<input type="button" id="submit" value="Submit" onclick="changeValue1990()">
 		</div>
-		
-		
+
+
 		<div class="CONTAINER">
 			<div class="HEADER">
 					<div class="BUTTON">
@@ -277,25 +313,25 @@
 							<span class="tcon-visuallyhidden">toggle menu</span>
 						</button>
 					</div>
-					
+
 					<div class="LOGO">
 						<img src="images/nwjlogo2.png" alt="Northwest Justice Project Logo">
 					</div>
-					
+
 					<div class="TITLE">
-						NWJUSTICE: GROWTH MANAGEMENT ACT
+						GMA: WASHINGTON HOUSING AFFORDABILITY
 					</div>
-					
+
 					<div class="ABOUT" id="ABOUT">
 						ABOUT
 					</div>
 			</div>
-			
+
 			<div class="MAIN">
 				<div class="ABOUT2" id="ABOUT2">
-				The Washington Growth Management Act has been in play for just about thirty years forming the basis of comprehensive planning 
+				The Washington Growth Management Act has been in play for just about thirty years forming the basis of comprehensive planning
 				efforts for cities across Washington including Spokane, Seattle, Tacoma, and the Tri-Cities. </br></br>
-				
+
 				Project Members: </br>
 				Ben Lucking </br>
 				Xinbo Lu </br>
@@ -303,17 +339,17 @@
 				Addison Sengvilay </br>
 				Yejie Shin
 				</div>
-				
+
 				<div class="LEGEND" id="LEGEND">
 					Each county is colored based on just that county's data. </br></br>
-					<div class="square break0"></div><p class="pLegend">0</p></br>
+					<div class="square break0"></div><p class="pLegend">0 / NULL</p></br>
 					<div class="square break1"></div><p class="pLegend">LOWEST</p></br>
 					<div class="square break2"></div><p class="pLegend"></p></br></br>
 					<div class="square break3"></div><p class="pLegend"></p></br></br>
 					<div class="square break4"></div><p class="pLegend"></p></br></br>
 					<div class="square break5"></div><p class="pLegend">HIGHEST</p></br>
 				</div>
-				
+
 				<!-- MAP LAYER -->
 				<div class="MAP" id="mapid">
 					<!-- MAIN JAVASCRIPT SCRIPT -->
@@ -323,21 +359,3 @@
 		</div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

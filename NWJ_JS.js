@@ -1,5 +1,5 @@
 ////////////////////////////////
-//      GLOBAL VARIABLES      //  		
+//      GLOBAL VARIABLES      //
 ////////////////////////////////
 
 var ugb2018;
@@ -22,12 +22,12 @@ document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentS
 choro5Color = ['#D3BCC0', '#F2D7EE', '#A5668B', '#69306D', '#0E103D'];
 
 ////////////////////////////////
-//      INITIALIZING MAP      //  		
+//      INITIALIZING MAP      //
 ////////////////////////////////
 
 // SEATTLE/KING COUNTY VIEW: (47.604673, -122.330884), 10 <- Zoom Level
-// CENTER OF WASHINGTON VIEW: (47.4235, -120.3103), 8 	
-// CENTER OF COUNTIES VIEW: (46.789512, -119.969831), 8		
+// CENTER OF WASHINGTON VIEW: (47.4235, -120.3103), 8
+// CENTER OF COUNTIES VIEW: (46.789512, -119.969831), 8
 
 // Initializes and modifies map.
 var mymap = L.map('mapid').setView([46.789512, -119.969831], 8);
@@ -55,13 +55,13 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 }).addTo(mymap);**/
 
 /////////////////////////////////
-//      IMPORTING GEOJSON      //  		
+//      IMPORTING GEOJSON      //
 /////////////////////////////////
 
 function setUGB2018() {
 	ugb2018 = L.geoJSON(ugb2018json, {
 		style: {fillColor: 'red', color: 'red', weight: 0.6, opacity: 1, fillOpacity: 1}
-	});	
+	});
 };
 
 // FUNCTION: onEachFeature2017
@@ -72,7 +72,7 @@ function onEachFeature2017(feature, layer) {
 	if (feature.properties && feature.properties.NAMELSAD) {
 		popupContent += "2017, Name: " + feature.properties.NAMELSAD + ", ";
 	}
-	
+
 	if (feature.properties && eval(line)) {
 		popupContent += currentSubject2017 + ": " + eval(line) + " ";
 	}
@@ -87,7 +87,7 @@ function onEachFeature1990(feature, layer) {
 	if (feature.properties && feature.properties.NAMELSAD10) {
 		popupContent += "1990, Name: " + feature.properties.NAMELSAD10 + ", ";
 	}
-	
+
 	if (feature.properties && eval(line)) {
 		popupContent += currentSubject1990 + ": " + eval(line) + " ";
 	}
@@ -101,7 +101,7 @@ function setKing2017() {
 	king2017 = L.geoJSON(king2017json, {
 		style: layerKing2017Style,
 		onEachFeature: onEachFeature2017
-	});	
+	});
 };
 
 // Adds 2017 Pierce county census tract polygon.
@@ -151,7 +151,7 @@ function setKing1990() {
 	king1990 = L.geoJSON(king1990json, {
 		style: layerKing1990Style,
 		onEachFeature: onEachFeature1990
-	});	
+	});
 };
 
 // Adds 1990 Pierce county census tract polygon.
@@ -195,7 +195,7 @@ function setWallaWalla1990() {
 };
 
 //////////////////////
-//      TOGGLES     //  		
+//      TOGGLES     //
 //////////////////////
 
 function changeValue2017() {
@@ -204,14 +204,14 @@ function changeValue2017() {
 	currentSubject2017 = e.options[e.selectedIndex].value;
 	document.getElementById("currentSelect2017").innerHTML = "SELECTED: " + currentSubject2017;
 	king2017.remove(mymap);pierce2017.remove(mymap);spokane2017.remove(mymap);benton2017.remove(mymap);franklin2017.remove(mymap);wallawalla2017.remove(mymap);
-	
+
 	king2017max = getMax(getSubjectArray('king2017json', styleSubject2017));
 	pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject2017));
 	spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject2017));
 	benton2017max = getMax(getSubjectArray('benton2017json', styleSubject2017));
 	franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject2017));
 	wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject2017));
-	
+
 	setKing2017();setPierce2017();setSpokane2017();setBenton2017();setFranklin2017();setWallaWalla2017();
 	var checkboxes = document.getElementsByTagName('input');
 	for(var i=0; i<checkboxes.length; i++){
@@ -221,7 +221,7 @@ function changeValue2017() {
 			};
 		}
 	};
-	ugb2018.bringToBack();	
+	ugb2018.bringToBack();
 };
 
 function changeValue1990() {
@@ -230,14 +230,14 @@ function changeValue1990() {
 	currentSubject1990 = e.options[e.selectedIndex].value;
 	document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentSubject1990;
 	king1990.remove(mymap);pierce1990.remove(mymap);spokane1990.remove(mymap);benton1990.remove(mymap);franklin1990.remove(mymap);wallawalla1990.remove(mymap);
-	
+
 	king1990max = getMax(getSubjectArray('king1990json', styleSubject1990));
 	pierce1990max = getMax(getSubjectArray('pierce1990json', styleSubject1990));
 	spokane1990max = getMax(getSubjectArray('spokane1990json', styleSubject1990));
 	benton1990max = getMax(getSubjectArray('benton1990json', styleSubject1990));
 	franklin1990max = getMax(getSubjectArray('franklin1990json', styleSubject1990));
 	wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject1990));
-	
+
 	setKing1990();setPierce1990();setSpokane1990();setBenton1990();setFranklin1990();setWallaWalla1990();
 	var checkboxes = document.getElementsByTagName('input');
 	for(var i=0; i<checkboxes.length; i++){
@@ -247,7 +247,7 @@ function changeValue1990() {
 			};
 		}
 	};
-	ugb2018.bringToBack();	
+	ugb2018.bringToBack();
 };
 
 // FUNCTION: toggleLayer
@@ -264,9 +264,9 @@ function toggleLayer(getLayer) {
 	}
 	ugb2018.bringToBack();
 };
- 
+
 //////////////////////
-//    CHOROPLETH    //  		
+//    CHOROPLETH    //
 //////////////////////
 
 // FUNCTION: getSubjectArray
@@ -309,6 +309,9 @@ wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject199
 // Returns a choropleth color scheme in a break of 5.
 // Takes in the max value of a given subject, and divides it evenly.
 function choropleth5(feature, max) {
+	if(!feature) {
+		return 'white';
+	}
 	return feature > max / 5 * 4 ? choro5Color[4]:
 		   feature > max / 5 * 3 ? choro5Color[3]:
 		   feature > max / 5 * 2 ? choro5Color[2]:
@@ -324,7 +327,7 @@ function layerKing2017Style(feature) {
 			fillColor: choropleth5(eval(line), king2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -335,7 +338,7 @@ function layerPierce2017Style(feature) {
 			fillColor: choropleth5(eval(line), pierce2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -346,7 +349,7 @@ function layerSpokane2017Style(feature) {
 			fillColor: choropleth5(eval(line), spokane2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -357,7 +360,7 @@ function layerBenton2017Style(feature) {
 			fillColor: choropleth5(eval(line), benton2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -368,7 +371,7 @@ function layerFranklin2017Style(feature) {
 			fillColor: choropleth5(eval(line), franklin2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -379,7 +382,7 @@ function layerWallaWalla2017Style(feature) {
 			fillColor: choropleth5(eval(line), wallawalla2017max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -392,7 +395,7 @@ function layerKing1990Style(feature) {
 			fillColor: choropleth5(eval(line), king1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -403,7 +406,7 @@ function layerPierce1990Style(feature) {
 			fillColor: choropleth5(eval(line), pierce1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -414,7 +417,7 @@ function layerSpokane1990Style(feature) {
 			fillColor: choropleth5(eval(line), spokane1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -425,7 +428,7 @@ function layerBenton1990Style(feature) {
 			fillColor: choropleth5(eval(line), benton1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -436,7 +439,7 @@ function layerFranklin1990Style(feature) {
 			fillColor: choropleth5(eval(line), franklin1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
@@ -447,13 +450,13 @@ function layerWallaWalla1990Style(feature) {
 			fillColor: choropleth5(eval(line), wallawalla1990max),
 			fillOpacity: 0.75,
 			color: 'black',
-			weight: 0.6, 
+			weight: 0.6,
 			opacity: 0.75
 	};
 };
 
 ///////////////////////////////
-//    INITIALIZING LAYERS    //  		
+//    INITIALIZING LAYERS    //
 ///////////////////////////////
 
 setKing2017();
@@ -484,7 +487,7 @@ setWallaWalla1990();
 setUGB2018();
 
 /////////////////////////
-//    WEBPAGE / CSS    //  		
+//    WEBPAGE / CSS    //
 /////////////////////////
 
 var status = 0;
@@ -522,6 +525,42 @@ transformicons.add('.tcon') // add default behavior for all elements with the cl
 .add('.tcon-menu--xbutterfly', {
 	transform: "mouseclick"
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

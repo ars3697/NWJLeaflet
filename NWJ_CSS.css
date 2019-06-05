@@ -10,7 +10,7 @@ body {
 }
 
 .HEADER, .MAP {
-	margin: 0;	
+	margin: 0;
 }
 
 .SIDEBAR {
@@ -106,7 +106,7 @@ body {
 	visibility: visible;
 	font-size: 16px;
 	font-size: 1vw;
-}	
+}
 
 .pSidebar {
 	padding-left: 10px;
