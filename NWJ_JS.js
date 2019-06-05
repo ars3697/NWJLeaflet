@@ -9,6 +9,12 @@ var king1990, pierce1990, spokane1990, benton1990, franklin1990, wallawalla1990;
 var king2017max, pierce2017max, spokane2017max, benton2017max, franklin2017max, wallawalla2017max;
 var king1990max, pierce1990max, spokane1990max, benton1990max, franklin1990max, wallawalla1990max;
 
+var king2017arr, pierce2017arr, spokane2017arr, benton2017arr, franklin2017arr, wallawalla2017arr;
+var king1990arr, pierce1990arr, spokane1990arr, benton1990arr, franklin1990arr, wallawalla1990arr;
+
+var king2017acc, pierce2017acc, spokane2017acc, benton2017acc, franklin2017acc, wallawalla2017acc;
+var king1990acc, pierce1990acc, spokane1990acc, benton1990acc, franklin1990acc, wallawalla1990acc;
+
 var styleSubject2017 = 'TRACT2017_TotalPop17';
 var styleSubject1990 = 'TotalPop90';
 
@@ -64,6 +70,16 @@ function setUGB2018() {
 	});
 };
 
+function add(arr) {
+	var sum = 0;
+	for(var i = 0; i < arr.length; i++) {
+		if(arr[i]) {
+			sum = sum + parseInt(arr[i]);
+		}
+	}
+	return sum;
+}
+
 // FUNCTION: onEachFeature2017
 // Enables popups when clicking on a shape in the map for 2017 layers.
 function onEachFeature2017(feature, layer) {
@@ -74,7 +90,28 @@ function onEachFeature2017(feature, layer) {
 	}
 
 	if (feature.properties && eval(line)) {
-		popupContent += currentSubject2017 + ": " + eval(line) + " ";
+		popupContent += currentSubject2017 + ": " + eval(line) + ", ";
+	}
+	
+	if(feature.properties && feature.properties.COUNTYFP && eval(line)) {
+		if(feature.properties.COUNTYFP == "033") {
+			popupContent += "Total in County: " + king2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/king2017acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP == "053") {
+			popupContent += "Total in County: " + pierce2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/pierce2017acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP == "063") {
+			popupContent += "Total in County: " + spokane2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/spokane2017acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP == "005") {
+			popupContent += "Total in County: " + benton2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/benton2017acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP == "021") {
+			popupContent += "Total in County: " + franklin2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/franklin2017acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP == "071") {
+			popupContent += "Total in County: " + wallawalla2017acc + ", Percentage of County: " + Math.round(100*(eval(line))/wallawalla2017acc*100)/100 + "%";
+		}
 	}
 	layer.bindPopup(popupContent);
 };
@@ -89,7 +126,28 @@ function onEachFeature1990(feature, layer) {
 	}
 
 	if (feature.properties && eval(line)) {
-		popupContent += currentSubject1990 + ": " + eval(line) + " ";
+		popupContent += currentSubject1990 + ": " + eval(line) + ", ";
+	}
+	
+	if(feature.properties && feature.properties.COUNTYFP10 && eval(line)) {
+		if(feature.properties.COUNTYFP10 == "033") {
+			popupContent += "Total in County: " + king1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/king1990acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP10 == "053") {
+			popupContent += "Total in County: " + pierce1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/pierce1990acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP10 == "063") {
+			popupContent += "Total in County: " + spokane1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/spokane1990acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP10 == "005") {
+			popupContent += "Total in County: " + benton1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/benton1990acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP10 == "021") {
+			popupContent += "Total in County: " + franklin1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/franklin1990acc*100)/100 + "%";
+		}
+		else if(feature.properties.COUNTYFP10 == "071") {
+			popupContent += "Total in County: " + wallawalla1990acc + ", Percentage of County: " + Math.round(100*(eval(line))/wallawalla1990acc*100)/100 + "%";
+		}
 	}
 	layer.bindPopup(popupContent);
 };
@@ -205,12 +263,26 @@ function changeValue2017() {
 	document.getElementById("currentSelect2017").innerHTML = "SELECTED: " + currentSubject2017;
 	king2017.remove(mymap);pierce2017.remove(mymap);spokane2017.remove(mymap);benton2017.remove(mymap);franklin2017.remove(mymap);wallawalla2017.remove(mymap);
 
-	king2017max = getMax(getSubjectArray('king2017json', styleSubject2017));
-	pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject2017));
-	spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject2017));
-	benton2017max = getMax(getSubjectArray('benton2017json', styleSubject2017));
-	franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject2017));
-	wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject2017));
+	king2017arr = getSubjectArray('king2017json', styleSubject2017);
+	pierce2017arr = getSubjectArray('pierce2017json', styleSubject2017);
+	spokane2017arr = getSubjectArray('spokane2017json', styleSubject2017); 
+	benton2017arr = getSubjectArray('benton2017json', styleSubject2017);
+	franklin2017arr = getSubjectArray('franklin2017json', styleSubject2017);
+	wallawalla2017arr = getSubjectArray('wallawalla2017json', styleSubject2017);
+
+	king2017acc = add(king2017arr);
+	pierce2017acc = add(pierce2017arr);
+	spokane2017acc = add(spokane2017arr);
+	benton2017acc = add(benton2017arr);
+	franklin2017acc = add(franklin2017arr);
+	wallawalla2017acc = add(wallawalla2017arr);
+
+	king2017max = getMax(king2017arr);
+	pierce2017max = getMax(pierce2017arr);
+	spokane2017max = getMax(spokane2017arr);
+	benton2017max = getMax(benton2017arr);
+	franklin2017max = getMax(franklin2017arr);
+	wallawalla2017max = getMax(wallawalla2017arr);
 
 	setKing2017();setPierce2017();setSpokane2017();setBenton2017();setFranklin2017();setWallaWalla2017();
 	var checkboxes = document.getElementsByTagName('input');
@@ -231,12 +303,26 @@ function changeValue1990() {
 	document.getElementById("currentSelect1990").innerHTML = "SELECTED: " + currentSubject1990;
 	king1990.remove(mymap);pierce1990.remove(mymap);spokane1990.remove(mymap);benton1990.remove(mymap);franklin1990.remove(mymap);wallawalla1990.remove(mymap);
 
-	king1990max = getMax(getSubjectArray('king1990json', styleSubject1990));
-	pierce1990max = getMax(getSubjectArray('pierce1990json', styleSubject1990));
-	spokane1990max = getMax(getSubjectArray('spokane1990json', styleSubject1990));
-	benton1990max = getMax(getSubjectArray('benton1990json', styleSubject1990));
-	franklin1990max = getMax(getSubjectArray('franklin1990json', styleSubject1990));
-	wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject1990));
+	king1990arr = getSubjectArray('king1990json', styleSubject1990);
+	pierce1990arr = getSubjectArray('pierce1990json', styleSubject1990);
+	spokane1990arr = getSubjectArray('spokane1990json', styleSubject1990); 
+	benton1990arr = getSubjectArray('benton1990json', styleSubject1990);
+	franklin1990arr = getSubjectArray('franklin1990json', styleSubject1990);
+	wallawalla1990arr = getSubjectArray('wallawalla1990json', styleSubject1990);
+
+	king1990acc = add(king1990arr);
+	pierce1990acc = add(pierce1990arr);
+	spokane1990acc = add(spokane1990arr);
+	benton1990acc = add(benton1990arr);
+	franklin1990acc = add(franklin1990arr);
+	wallawalla1990acc = add(wallawalla1990arr);
+
+	king1990max = getMax(king1990arr);
+	pierce1990max = getMax(pierce1990arr);
+	spokane1990max = getMax(spokane1990arr);
+	benton1990max = getMax(benton1990arr);
+	franklin1990max = getMax(franklin1990arr);
+	wallawalla1990max = getMax(wallawalla1990arr);
 
 	setKing1990();setPierce1990();setSpokane1990();setBenton1990();setFranklin1990();setWallaWalla1990();
 	var checkboxes = document.getElementsByTagName('input');
@@ -291,19 +377,48 @@ function getSubjectArray (county, subject) {
 function getMax(arr) {
 	return Math.max.apply(Math, arr);
 }
-king2017max = getMax(getSubjectArray('king2017json', styleSubject2017));
-pierce2017max = getMax(getSubjectArray('pierce2017json', styleSubject2017));
-spokane2017max = getMax(getSubjectArray('spokane2017json', styleSubject2017));
-benton2017max = getMax(getSubjectArray('benton2017json', styleSubject2017));
-franklin2017max = getMax(getSubjectArray('franklin2017json', styleSubject2017));
-wallawalla2017max = getMax(getSubjectArray('wallawalla2017json', styleSubject2017));
 
-king1990max = getMax(getSubjectArray('king1990json', styleSubject1990));
-pierce1990max = getMax(getSubjectArray('pierce1990json', styleSubject1990));
-spokane1990max = getMax(getSubjectArray('spokane1990json', styleSubject1990));
-benton1990max = getMax(getSubjectArray('benton1990json', styleSubject1990));
-franklin1990max = getMax(getSubjectArray('franklin1990json', styleSubject1990));
-wallawalla1990max = getMax(getSubjectArray('wallawalla1990json', styleSubject1990));
+king2017arr = getSubjectArray('king2017json', styleSubject2017);
+pierce2017arr = getSubjectArray('pierce2017json', styleSubject2017);
+spokane2017arr = getSubjectArray('spokane2017json', styleSubject2017); 
+benton2017arr = getSubjectArray('benton2017json', styleSubject2017);
+franklin2017arr = getSubjectArray('franklin2017json', styleSubject2017);
+wallawalla2017arr = getSubjectArray('wallawalla2017json', styleSubject2017);
+
+king2017acc = add(king2017arr);
+pierce2017acc = add(pierce2017arr);
+spokane2017acc = add(spokane2017arr);
+benton2017acc = add(benton2017arr);
+franklin2017acc = add(franklin2017arr);
+wallawalla2017acc = add(wallawalla2017arr);
+
+king2017max = getMax(king2017arr);
+pierce2017max = getMax(pierce2017arr);
+spokane2017max = getMax(spokane2017arr);
+benton2017max = getMax(benton2017arr);
+franklin2017max = getMax(franklin2017arr);
+wallawalla2017max = getMax(wallawalla2017arr);
+
+king1990arr = getSubjectArray('king1990json', styleSubject1990);
+pierce1990arr = getSubjectArray('pierce1990json', styleSubject1990);
+spokane1990arr = getSubjectArray('spokane1990json', styleSubject1990); 
+benton1990arr = getSubjectArray('benton1990json', styleSubject1990);
+franklin1990arr = getSubjectArray('franklin1990json', styleSubject1990);
+wallawalla1990arr = getSubjectArray('wallawalla1990json', styleSubject1990);
+
+king1990acc = add(king1990arr);
+pierce1990acc = add(pierce1990arr);
+spokane1990acc = add(spokane1990arr);
+benton1990acc = add(benton1990arr);
+franklin1990acc = add(franklin1990arr);
+wallawalla1990acc = add(wallawalla1990arr);
+
+king1990max = getMax(king1990arr);
+pierce1990max = getMax(pierce1990arr);
+spokane1990max = getMax(spokane1990arr);
+benton1990max = getMax(benton1990arr);
+franklin1990max = getMax(franklin1990arr);
+wallawalla1990max = getMax(wallawalla1990arr);
 
 // FUNCTION: choropleth5
 // Returns a choropleth color scheme in a break of 5.
